@@ -8,6 +8,7 @@
 let wordcountURL = "http://wordcount.editor.qpc.hal.davecutting.uk";
 let charcountURL = "http://charcount.editor.qpc.hal.davecutting.uk";
 let palindromeURL = "http://palindrome.40234272.qpc.hal.davecutting.uk";
+let vowelCountURL = "http://vowel.40234272.qpc.hal.davecutting.uk";
 
 
 function Wordcount()
@@ -51,6 +52,21 @@ function Palindrome()
     };
 
     let url = palindromeURL + "/?text=" + encodeURI(document.getElementById('content').value);
+    xhttp.open("GET",url);
+    xhttp.send();
+}
+
+function Vowel()
+{
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var j = JSON.parse(this.response);
+            document.getElementById('output').value = j.answer;
+        }
+    };
+
+    let url = vowelCountURL + "/?text=" + encodeURI(document.getElementById('content').value);
     xhttp.open("GET",url);
     xhttp.send();
 }
@@ -120,7 +136,7 @@ body  {
     </div>
     <div>
         <button class="operation" onclick="Palindrome()">Palindrome Count</button>
-        <button class="operation" onclick="">Vowel Count</button>
+        <button class="operation" onclick="Vowel()">Vowel Count</button>
     </div>
     <div>
         <button class="operation" onclick="">Average Word Length</button>
