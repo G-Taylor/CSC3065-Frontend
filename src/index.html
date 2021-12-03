@@ -1,138 +1,146 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>QUBeditotron3000</title>
+    <title>QUBeditotron3000</title>
 
-<script type="text/javascript">
+    <script type="text/javascript">
 
-let wordcountURL = "http://wordcount.editor.qpc.hal.davecutting.uk";
-let charcountURL = "http://charcount.editor.qpc.hal.davecutting.uk";
-let palindromeURL = "http://palindrome.40234272.qpc.hal.davecutting.uk";
-let vowelCountURL = "http://vowel.40234272.qpc.hal.davecutting.uk";
-let avgWordURL = "http://avgword.40234272.qpc.hal.davecutting.uk";
+        let wordcountURL = "http://wordcount.editor.qpc.hal.davecutting.uk";
+        let charcountURL = "http://charcount.editor.qpc.hal.davecutting.uk";
+        let palindromeURL = "http://palindrome.40234272.qpc.hal.davecutting.uk";
+        let vowelCountURL = "http://vowel.40234272.qpc.hal.davecutting.uk";
+        let avgWordURL = "http://avgword.40234272.qpc.hal.davecutting.uk";
+        let andCountURL = "http://andcount.40234272.qpc.hal.davecutting.uk";
 
-function Wordcount()
-{
-    let xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            var j = JSON.parse(this.response);
-            document.getElementById('output').value = j.answer;
+        function Wordcount() {
+            let xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var j = JSON.parse(this.response);
+                    document.getElementById('output').value = j.answer;
+                }
+            };
+
+            let url = wordcountURL + "/?text=" + encodeURI(document.getElementById('content').value);
+            xhttp.open("GET", url);
+            xhttp.send();
         }
-    };
 
-    let url = wordcountURL + "/?text=" + encodeURI(document.getElementById('content').value);
-    xhttp.open("GET",url);
-    xhttp.send();
-}
+        function Charcount() {
+            let xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var j = JSON.parse(this.response);
+                    document.getElementById('output').value = j.answer;
+                }
+            };
 
-function Charcount()
-{
-    let xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            var j = JSON.parse(this.response);
-            document.getElementById('output').value = j.answer;
+            let url = charcountURL + "/?text=" + encodeURI(document.getElementById('content').value);
+            xhttp.open("GET", url);
+            xhttp.send();
         }
-    };
 
-    let url = charcountURL + "/?text=" + encodeURI(document.getElementById('content').value);
-    xhttp.open("GET",url);
-    xhttp.send();
-}
+        function Palindrome() {
+            let xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var j = JSON.parse(this.response);
+                    document.getElementById('output').value = j.answer;
+                }
+            };
 
-function Palindrome()
-{
-    let xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            var j = JSON.parse(this.response);
-            document.getElementById('output').value = j.answer;
+            let url = palindromeURL + "/?text=" + encodeURI(document.getElementById('content').value);
+            xhttp.open("GET", url);
+            xhttp.send();
         }
-    };
 
-    let url = palindromeURL + "/?text=" + encodeURI(document.getElementById('content').value);
-    xhttp.open("GET",url);
-    xhttp.send();
-}
+        function Vowel() {
+            let xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var j = JSON.parse(this.response);
+                    document.getElementById('output').value = j.answer;
+                }
+            };
 
-function Vowel()
-{
-    let xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            var j = JSON.parse(this.response);
-            document.getElementById('output').value = j.answer;
+            let url = vowelCountURL + "/?text=" + encodeURI(document.getElementById('content').value);
+            xhttp.open("GET", url);
+            xhttp.send();
         }
-    };
 
-    let url = vowelCountURL + "/?text=" + encodeURI(document.getElementById('content').value);
-    xhttp.open("GET",url);
-    xhttp.send();
-}
+        function AvgWord() {
+            let xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var j = JSON.parse(this.response);
+                    document.getElementById('output').value = j.answer;
+                }
+            };
 
-function AvgWord()
-{
-    let xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            var j = JSON.parse(this.response);
-            document.getElementById('output').value = j.answer;
+            let url = avgWordURL + "/?text=" + encodeURI(document.getElementById('content').value);
+            xhttp.open("GET", url);
+            xhttp.send();
         }
-    };
 
-    let url = avgWordURL + "/?text=" + encodeURI(document.getElementById('content').value);
-    xhttp.open("GET",url);
-    xhttp.send();
-}
+        function AndCount() {
+            let xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var j = JSON.parse(this.response);
+                    document.getElementById('output').value = j.answer;
+                }
+            };
+
+            let url = andCountURL + "/?text=" + encodeURI(document.getElementById('content').value);
+            xhttp.open("GET", url);
+            xhttp.send();
+        }
 
 
-</script>
+    </script>
 
-<style type="text/css">
-body  {
-    font-size: 150%;
-    font-family: monospace;
-}
+    <style type="text/css">
+        body {
+            font-size: 150%;
+            font-family: monospace;
+        }
 
-#logo
-{
-    font-family: Calibri, sans-serif;
-    font-weight: lighter;
-    color: #505050;
-    margin: 0.5em;
-}
+        #logo {
+            font-family: Calibri, sans-serif;
+            font-weight: lighter;
+            color: #505050;
+            margin: 0.5em;
+        }
 
-#editor
-{
-    text-align: center;
-    margin-top: 1em;
-}
+        #editor {
+            text-align: center;
+            margin-top: 1em;
+        }
 
-#output {
-    font-size: 100%;
-    padding: 0.2em;
-    margin: 0.2em;
-    font-family: monospace;
-    letter-spacing: 0.1em;
-}
+        #output {
+            font-size: 100%;
+            padding: 0.2em;
+            margin: 0.2em;
+            font-family: monospace;
+            letter-spacing: 0.1em;
+        }
 
-#content {
-    font-size: 100%;
-    padding: 0.2em;
-    margin: 0.2em;
-    font-family: monospace;
-    letter-spacing: 0.1em;
-}
+        #content {
+            font-size: 100%;
+            padding: 0.2em;
+            margin: 0.2em;
+            font-family: monospace;
+            letter-spacing: 0.1em;
+        }
 
-.operation {
-    border: solid #d0d0d0 1px;
-    background-color: #f0f0f0;
-    padding: 1.5em;
-    margin: 1em;
-    width: 14em;
-}
-</style>
+        .operation {
+            border: solid #d0d0d0 1px;
+            background-color: #f0f0f0;
+            padding: 1.5em;
+            margin: 1em;
+            width: 14em;
+        }
+    </style>
 
 </head>
 <body>
@@ -144,7 +152,7 @@ body  {
         <textarea rows="5" cols="40" id="content">It was the best of cloud, it was the worst of cloud...</textarea>
     </div>
     <div>
-        <input type="text" id="output" readonly="1" value="" />
+        <input type="text" id="output" readonly="1" value=""/>
     </div>
     <div>
         <button class="operation" onclick="Wordcount();">Word Count</button>
@@ -156,7 +164,7 @@ body  {
     </div>
     <div>
         <button class="operation" onclick="AvgWord()">Average Word Length</button>
-        <button class="operation" onclick="">'And' Count</button>
+        <button class="operation" onclick="AndCount()">'And' Count</button>
     </div>
     <div>
         <button class="operation" onclick="">??</button>
@@ -166,7 +174,7 @@ body  {
         <button class="operation" onclick="">??</button>
         <button class="operation" onclick="">??</button>
     </div>
-    
+
 </div>
 </body>
 
