@@ -2,100 +2,40 @@
 <html>
 <head>
     <title>QUBeditotron3000</title>
-
+    <script type="text/javascript" src="function-list.js"> </script>
     <script type="text/javascript">
 
-        let wordcountURL = "http://wordcount.40234272.qpc.hal.davecutting.uk";
-        let charcountURL = "http://charcount.40234272.qpc.hal.davecutting.uk";
-        let palindromeURL = "http://palindrome.40234272.qpc.hal.davecutting.uk";
-        let vowelCountURL = "http://vowel.40234272.qpc.hal.davecutting.uk";
-        let avgWordURL = "http://avgword.40234272.qpc.hal.davecutting.uk";
-        let andCountURL = "http://andcount.40234272.qpc.hal.davecutting.uk";
+        // standalone function to handle the response from the functions and update the answer
+        function UpdateAnswer(response) {
+            let answer;
 
-        function Wordcount() {
+            var j = JSON.parse(response);
+            if (j.error === "false" || !j.error) {
+                answer = j.answer;
+            } else {
+                answer = "Error";
+            }
+            document.getElementById('output').value = answer;
+        }
+
+        // one main function that takes a function type as an argument, and gets the URL from an external list
+        function EditorFunction(func) {
             let xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    var j = JSON.parse(this.response);
-                    document.getElementById('output').value = j.answer;
-                }
-            };
+            let functions = function_list;
 
-            let url = wordcountURL + "/?text=" + encodeURI(document.getElementById('content').value);
+            if (functions[func] == undefined){
+                document.getElementById('output').value = "Function Undefined";
+            } else {
+                xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    UpdateAnswer(this.response);
+                }};
+            }
+
+            let url = functions[func] + "/?text=" + encodeURI(document.getElementById('content').value);
             xhttp.open("GET", url);
             xhttp.send();
         }
-
-        function Charcount() {
-            let xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    var j = JSON.parse(this.response);
-                    document.getElementById('output').value = j.answer;
-                }
-            };
-
-            let url = charcountURL + "/?text=" + encodeURI(document.getElementById('content').value);
-            xhttp.open("GET", url);
-            xhttp.send();
-        }
-
-        function Palindrome() {
-            let xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    var j = JSON.parse(this.response);
-                    document.getElementById('output').value = j.answer;
-                }
-            };
-
-            let url = palindromeURL + "/?text=" + encodeURI(document.getElementById('content').value);
-            xhttp.open("GET", url);
-            xhttp.send();
-        }
-
-        function Vowel() {
-            let xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    var j = JSON.parse(this.response);
-                    document.getElementById('output').value = j.answer;
-                }
-            };
-
-            let url = vowelCountURL + "/?text=" + encodeURI(document.getElementById('content').value);
-            xhttp.open("GET", url);
-            xhttp.send();
-        }
-
-        function AvgWord() {
-            let xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    var j = JSON.parse(this.response);
-                    document.getElementById('output').value = j.answer;
-                }
-            };
-
-            let url = avgWordURL + "/?text=" + encodeURI(document.getElementById('content').value);
-            xhttp.open("GET", url);
-            xhttp.send();
-        }
-
-        function AndCount() {
-            let xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    var j = JSON.parse(this.response);
-                    document.getElementById('output').value = j.answer;
-                }
-            };
-
-            let url = andCountURL + "/?text=" + encodeURI(document.getElementById('content').value);
-            xhttp.open("GET", url);
-            xhttp.send();
-        }
-
 
     </script>
 
@@ -155,16 +95,16 @@
         <input type="text" id="output" readonly="1" value=""/>
     </div>
     <div>
-        <button class="operation" onclick="Wordcount();">Word Count</button>
-        <button class="operation" onclick="Charcount();">Character Count</button>
+        <button class="operation" onclick="EditorFunction('wordcount');">Word Count</button>
+        <button class="operation" onclick="EditorFunction('charcount');">Character Count</button>
     </div>
     <div>
-        <button class="operation" onclick="Palindrome()">Palindrome Count</button>
-        <button class="operation" onclick="Vowel()">Vowel Count</button>
+        <button class="operation" onclick="EditorFunction('palindrome')">Palindrome Count</button>
+        <button class="operation" onclick="EditorFunction('vowelcount')">Vowel Count</button>
     </div>
     <div>
-        <button class="operation" onclick="AvgWord()">Average Word Length</button>
-        <button class="operation" onclick="AndCount()">'And' Count</button>
+        <button class="operation" onclick="EditorFunction('average')">Average Word Length</button>
+        <button class="operation" onclick="EditorFunction('and')">'And' Count</button>
     </div>
     <div>
         <button class="operation" onclick="">??</button>
