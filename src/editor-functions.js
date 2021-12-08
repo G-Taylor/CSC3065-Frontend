@@ -13,6 +13,8 @@ function UpdateAnswer(response) {
 
 // one main function that takes a function type as an argument, and gets the URL from an external list
 function EditorFunction(func) {
+    let urlStart = "http://";
+    let urlEnd = ".40234272.qpc.hal.davecutting.uk";
     let xhttp = new XMLHttpRequest();
     let functions = function_list;
 
@@ -25,7 +27,12 @@ function EditorFunction(func) {
         }};
     }
 
-    let url = functions[func] + "/?text=" + encodeURI(document.getElementById('content').value);
+    let url = [
+        urlStart, 
+        functions[func], 
+        urlEnd, "/?text=", 
+        encodeURI(document.getElementById('content').value)
+    ].join('');
     xhttp.open("GET", url);
     xhttp.send();
 }
