@@ -3,6 +3,7 @@ function UpdateAnswer(response) {
     let answer;
 
     var j = JSON.parse(response);
+    console.log(j)
     if (j.error === "false" || !j.error) {
         answer = j.answer;
     } else {
@@ -13,8 +14,9 @@ function UpdateAnswer(response) {
 
 // one main function that takes a function type as an argument, and gets the URL from an external list
 function EditorFunction(func) {
-    let urlStart = "http://";
-    let urlEnd = ".40234272.qpc.hal.davecutting.uk";
+    // let urlStart = "http://";
+    // let urlEnd = ".40234272.qpc.hal.davecutting.uk";
+    let proxy = "http://proxy.40234272.qpc.hal.davecutting.uk"
     let xhttp = new XMLHttpRequest();
     let functions = function_list;
 
@@ -27,12 +29,28 @@ function EditorFunction(func) {
         }};
     }
 
+    // let url = [
+    //     // http://
+    //     urlStart, 
+    //     // editor function
+    //     functions[func],
+    //     // rancher endpoint 
+    //     urlEnd, 
+    //     // query
+    //     "/?text=", encodeURI(document.getElementById('content').value)
+    // ].join('');
+
     let url = [
-        urlStart, 
+        // Proxy URL
+        proxy,
+        //function query
+        "/?func=", 
+        // editor function
         functions[func], 
-        urlEnd, "/?text=", 
-        encodeURI(document.getElementById('content').value)
+        // query
+        "&text=", encodeURI(document.getElementById('content').value)
     ].join('');
+    console.log(url);
     xhttp.open("GET", url);
     xhttp.send();
 }
