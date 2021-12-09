@@ -1,8 +1,7 @@
 // standalone function to handle the response from the functions and update the answer
-function UpdateAnswer(response) {
+function UpdateAnswer(j) {
     let answer;
 
-    var j = JSON.parse(response);
     console.log(j)
     if (j.error === "false" || !j.error) {
         answer = j.answer;
@@ -25,7 +24,8 @@ function EditorFunction(func) {
     } else {
         xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            UpdateAnswer(this.response);
+            var j = JSON.parse(this.response);
+            UpdateAnswer(j);
         }};
     }
 
