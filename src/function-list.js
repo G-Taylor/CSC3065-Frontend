@@ -1,8 +1,8 @@
 var function_list = {
     "wordcount": "wordcount",
     "charcount": "charcount",
-    "vowelcount": "vowel",
+    "vowelcount": "vowelcount",
     "palindrome": "palindrome",
-    "average": "avgword",
+    "average": "average",
     "and": "andcount"
 };

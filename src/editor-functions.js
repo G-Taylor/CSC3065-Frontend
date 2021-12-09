@@ -1,7 +1,7 @@
 // standalone function to handle the response from the functions and update the answer
-function UpdateAnswer(j) {
+function UpdateAnswer(response) {
     let answer;
-
+    var j = JSON.parse(response);
     console.log(j)
     if (j.error === "false" || !j.error) {
         answer = j.answer;
@@ -17,15 +17,16 @@ function EditorFunction(func) {
     // let urlEnd = ".40234272.qpc.hal.davecutting.uk";
     let proxy = "http://proxy.40234272.qpc.hal.davecutting.uk"
     let xhttp = new XMLHttpRequest();
-    let functions = function_list;
 
-    if (functions[func] == undefined){
+    if (func == undefined){
         document.getElementById('output').value = "Function Undefined";
     } else {
+        console.log(func);
         xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            var j = JSON.parse(this.response);
-            UpdateAnswer(j);
+            console.log(this.responseText);
+            console.log(this.response);
+            UpdateAnswer(this.response);
         }};
     }
 
@@ -46,9 +47,9 @@ function EditorFunction(func) {
         //function query
         "/?func=", 
         // editor function
-        functions[func], 
+        func, 
         // query
-        "&text=", encodeURI(document.getElementById('content').value)
+        "&?text=", encodeURI(document.getElementById('content').value)
     ].join('');
     console.log(url);
     xhttp.open("GET", url);
