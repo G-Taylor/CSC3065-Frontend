@@ -16,27 +16,42 @@
     <div>
         <input type="text" id="output" readonly="1" value=""/>
     </div>
-    <div>
-        <button class="operation" onclick="EditorFunction('wordcount');">Word Count</button>
-        <button class="operation" onclick="EditorFunction('charcount');">Character Count</button>
+    <div id="functionButtons">
+        <button class="operation" id="func" onclick="EditorFunction('wordcount');" disabled>Word Count</button>
+        <button class="operation" id="func" onclick="EditorFunction('charcount');" disabled>Character Count</button>
     </div>
     <div>
-        <button class="operation" onclick="EditorFunction('palindrome')">Palindrome Count</button>
-        <button class="operation" onclick="EditorFunction('vowelcount')">Vowel Count</button>
+        <button class="operation" id="func" onclick="EditorFunction('palindrome')" disabled>Palindrome Count</button>
+        <button class="operation" id="func" onclick="EditorFunction('vowelcount')" disabled>Vowel Count</button>
     </div>
     <div>
-        <button class="operation" onclick="EditorFunction('average')">Average Word Length</button>
-        <button class="operation" onclick="EditorFunction('and')">'And' Count</button>
+        <button class="operation" id="func" onclick="EditorFunction('average')" disabled>Average Word Length</button>
+        <button class="operation" id="func" onclick="EditorFunction('and')" disabled>'And' Count</button>
     </div>
     <div>
-        <button class="operation" onclick="">??</button>
-        <button class="operation" onclick="">??</button>
+        <button class="operation" id="func" onclick="" disabled>??</button>
+        <button class="operation" id="func" onclick="" disabled>??</button>
     </div>
     <div>
-        <button class="operation" onclick="">??</button>
-        <button class="operation" onclick="">??</button>
+        <button class="operation" id="func" onclick="" disabled>??</button>
+        <button class="operation" id="func" onclick="" disabled>??</button>
     </div>
 
 </div>
+<!-- jQuery & JavaScript that disables all buttons unless letters are present in the input box -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+    const regex = new RegExp('[a-zA-Z]')
+    $(document).ready(function(){
+        $(":button").prop("disabled", false);
+        $("#content").keyup(function(){
+            if(regex.test(document.getElementById('content').value) == false) {
+                $(":button").prop("disabled", true);
+            } else {
+                $(":button").prop("disabled", false);
+            }
+        });
+    });
+</script>
 </body>
 </html>
