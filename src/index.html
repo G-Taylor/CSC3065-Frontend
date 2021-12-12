@@ -3,8 +3,24 @@
 <head>
     <title>QUBeditotron3000</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script type="text/javascript" src="editor-functions.js"></script>
     <script type="text/javascript" src="proxy-endpoints.js"></script>
+    <script>
+        // database connection details
+        const firebaseConfig = {
+        apiKey: "AIzaSyCLoktnsV7Z2phw7h6yudnByLHGPsgbZ_Y",
+        authDomain: "editor-qub.firebaseapp.com",
+        projectId: "editor-qub",
+        storageBucket: "editor-qub.appspot.com",
+        messagingSenderId: "842245378738",
+        appId: "1:842245378738:web:3ab73158b1b88e5cb0efab",
+        measurementId: "G-RP63VXZV4Q"
+        };
+        firebase.initializeApp(firebaseConfig);
+        var db = firebase.firestore();
+    </script>
 </head>
 <body>
 <div id="editor">
@@ -30,14 +46,16 @@
         <button class="operation" id="func" onclick="EditorFunction('and')" disabled>'And' Count</button>
     </div>
     <div>
-        <button class="operation" id="func" onclick="" disabled>??</button>
-        <button class="operation" id="func" onclick="" disabled>??</button>
+        <button class="operation" id="func" onclick="saveSentence()" disabled>Save Sentence</button>
+        <button class="operation" id="func" onclick="showSavedSentences()" disabled>Show Saved Sentences</button>
     </div>
     <div>
-        <button class="operation" id="func" onclick="" disabled>??</button>
-        <button class="operation" id="func" onclick="" disabled>??</button>
+        <button class="operation" id="func" onclick="deleteSentence()" disabled>Delete Sentence</button>
+        <button class="operation" id="func" onclick="clearText()" disabled>Clear Text</button>
     </div>
-
+    <div>
+        <textarea rows="7" style="width: 80%;" id="savedSentences"></textarea>
+    </div>
 </div>
 <!-- jQuery & JavaScript that disables all buttons unless letters are present in the input box -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -48,8 +66,10 @@
         $("#content").keyup(function(){
             if(regex.test(document.getElementById('content').value) == false) {
                 $(":button").prop("disabled", true);
+                buttonsDisabled = true;
             } else {
                 $(":button").prop("disabled", false);
+                buttonsDisabled = false;
             }
         });
     });

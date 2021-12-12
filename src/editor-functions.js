@@ -1,3 +1,4 @@
+let buttonsDisabled = false;
 // standalone function to handle the response from the functions and update the answer
 function UpdateAnswer(response) {
     let answer;
@@ -49,4 +50,61 @@ async function EditorFunction(func) {
         xhttp.send();
     }
     
+}
+
+// query the database and display all of the saved sentences and their id's
+function showSavedSentences() {
+    var counter = 0;
+    var savedSentences = new Array();
+
+    // get saved sentences and add them to an array
+    db.collection("sentences").get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            savedSentences[counter] = [doc.id, " => ", doc.data().text];
+            console.log(doc.id, " => ", doc.data().text);
+            counter++;
+        });
+        // display the contents of the array in a new text box on the frontend
+        document.getElementById('savedSentences').value = ("ID\t\t\t\tSENTENCE\n" + savedSentences.join("\n\n"))
+    });
+    
+}
+
+// save the contents of the 'content' text box to the database
+function saveSentence(){
+    // Add a new document with a generated id.
+    db.collection("sentences").add({
+        text: document.getElementById('content').value,
+    })
+    .then((docRef) => {
+        alert("Sentence successfully saved");
+        showSavedSentences();
+    })
+    .catch((error) => {
+        alert("Error adding sentence: ", error);
+    });
+}
+
+// Prompt the user for an ID of a saved sentence, then delete it from the database
+function deleteSentence() {
+    var sentenceID = prompt("Please enter the ID of the sentence you want to delete");
+
+    db.collection("sentences").doc(sentenceID).delete().then(() => {
+        alert("Document successfully deleted!");
+        showSavedSentences();
+    }).catch((error) => {
+        alert("Error removing sentence: ", error);
+    });
+}
+
+// Clear the text from the 'content' text box, and disable the buttons
+function clearText() {
+    document.getElementById('content').value = null;
+    if(regex.test(document.getElementById('content').value) == false) {
+        $(":button").prop("disabled", true);
+        buttonsDisabled = true;
+    } else {
+        $(":button").prop("disabled", false);
+        buttonsDisabled = false;
+    }
 }
