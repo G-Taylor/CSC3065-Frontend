@@ -1,4 +1,3 @@
-let buttonsDisabled = false;
 // standalone function to handle the response from the functions and update the answer
 function UpdateAnswer(response) {
     let answer;
@@ -10,13 +9,14 @@ function UpdateAnswer(response) {
         answer = "Error";
     }
     document.getElementById('output').value = answer;
+    disableButtons(false);  // when answer is updated, allow other buttons to be pressed
 }
 
 // function that takes a editor function type as an argument, and gets the proxy URL from an external list based on response status
 async function EditorFunction(func) {
     let proxyList = PROXYLIST;
     let proxyStatus;
-
+    disableButtons(true); // disable the buttons when a function button is pressed
     // loop through the proxy list and find one that is working
     for(const[key, value] of Object.entries(proxyList)) {
         fetch(value).then(function(response) {
@@ -101,10 +101,14 @@ function deleteSentence() {
 function clearText() {
     document.getElementById('content').value = null;
     if(regex.test(document.getElementById('content').value) == false) {
-        $(":button").prop("disabled", true);
-        buttonsDisabled = true;
+        disableButtons(true);
     } else {
-        $(":button").prop("disabled", false);
-        buttonsDisabled = false;
+        disableButtons(false);
     }
+}
+
+// method to disable all of the buttons in the frontend
+// used when text box is empty, or while an XMLHttpRequest is being performed
+function disableButtons(flag) {
+    $(":button").prop("disabled", flag);
 }

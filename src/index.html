@@ -16,7 +16,7 @@
         storageBucket: "editor-qub.appspot.com",
         messagingSenderId: "842245378738",
         appId: "1:842245378738:web:3ab73158b1b88e5cb0efab",
-        measurementId: "G-RP63VXZV4Q"
+        measurementId: "G-RP63VXZV4Q" 
         };
         firebase.initializeApp(firebaseConfig);
         var db = firebase.firestore();
@@ -65,11 +65,9 @@
         $(":button").prop("disabled", false);
         $("#content").keyup(function(){
             if(regex.test(document.getElementById('content').value) == false) {
-                $(":button").prop("disabled", true);
-                buttonsDisabled = true;
+                disableButtons(true);
             } else {
-                $(":button").prop("disabled", false);
-                buttonsDisabled = false;
+                disableButtons(false);
             }
         });
     });
